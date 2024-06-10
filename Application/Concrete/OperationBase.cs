@@ -2,18 +2,19 @@
 using Core.Event;
 using Core.Result;
 using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-using System.Xml;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace Core
+namespace Application.Concrete
 {
     public abstract class OperationBase<TRequest, TResponse>
         where TRequest : Request
     {
-        protected virtual void Before(TRequest request) { }
-        protected virtual void After(TRequest request) { }
 
+        protected virtual string Cachekey { get; }
+        protected virtual void Before(TRequest request)
+        {
+            //request'in validation bul ve çalıştır.
+        }
+        protected virtual void After(TRequest request) { }
         protected virtual void Exception(TRequest request, Exception e) { }
         protected abstract TResponse Execute(TRequest request);
         public DataResponse<TResponse> Operation(TRequest request)
@@ -26,6 +27,12 @@ namespace Core
                 After(request);
                 Console.WriteLine($"Response Json {request.Guid}: {JsonConvert.SerializeObject(response)}");
                 Completed(request);
+
+                if (request is ICacheable)
+                {
+                    AddToCache(request, response);
+                }
+
                 return new SuccessResponse<TResponse>(response);
 
             }
@@ -37,7 +44,10 @@ namespace Core
             }
             finally { }
         }
-
+        protected virtual void AddToCache(TRequest request, TResponse response)
+        {
+            Console.WriteLine($"AddToCache : {Cachekey}");
+        }
         private void Completed(TRequest request)
         {
             foreach (IEvent @event in request.Events)

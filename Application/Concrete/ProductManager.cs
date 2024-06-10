@@ -1,11 +1,6 @@
 ﻿using Application.Product;
 using Core.Result;
 using Entity.Dto.ProductDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Concrete
 {

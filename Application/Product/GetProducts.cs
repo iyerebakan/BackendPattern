@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Application.Product
 {
-    public class GetProducts : Request
+    public class GetProducts : Request, ICacheable
     {
         public GetProducts()
         {
             Append(new GetProductsCompleted());
         }
+
     }
 }

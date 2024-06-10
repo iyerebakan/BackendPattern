@@ -12,6 +12,8 @@ namespace Core.Abstract
         public Guid Guid { get; set; } = Guid.NewGuid();
         public Queue<IEvent> Events { get; set; } = new Queue<IEvent>();
 
+        protected string Key { get;set; }
+
         public void Append(IEvent e)
         {
             Events.Enqueue(e);

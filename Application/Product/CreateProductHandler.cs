@@ -1,11 +1,5 @@
-﻿using Core;
+﻿using Application.Concrete;
 using DataAccess.Concrete;
-using Entity.Dto.ProductDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Product
 {

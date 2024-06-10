@@ -1,13 +1,12 @@
-﻿using Core;
-using Core.Event;
+﻿using Application.Concrete;
 using DataAccess.Concrete;
-using Entity;
 using Entity.Dto.ProductDtos;
 
 namespace Application.Product
 {
     public class GetProductsHandler : OperationBase<GetProducts, List<ProductDto>>
     {
+
         protected override List<ProductDto> Execute(GetProducts request)
         {
             ProductRepository productRepository = new ProductRepository();
@@ -19,5 +18,7 @@ namespace Application.Product
             }
             return products;
         }
+
+        protected override string Cachekey { get => "GetProductHandler"; }
     }
 }
